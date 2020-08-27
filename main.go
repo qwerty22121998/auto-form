@@ -89,7 +89,6 @@ func fill(wd selenium.WebDriver) {
 	roots, _ := wd.FindElements(selenium.ByCSSSelector, question.Root)
 
 	for i, v := range roots {
-		v = v
 		choices, _ := v.FindElements(selenium.ByCSSSelector, question.Ele)
 		index := question.Distribute[i][0]
 		question.Distribute[i] = question.Distribute[i][1:]
