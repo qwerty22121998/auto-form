@@ -94,15 +94,22 @@ func fill(wd selenium.WebDriver) {
 		question.Distribute[i] = question.Distribute[i][1:]
 		choices[index].Click()
 	}
+
+	submit, _ := wd.FindElement(selenium.ByCSSSelector,".freebirdFormviewerViewNavigationSubmitButton")
+	submit.Click()
 }
 
 func main() {
 	initialize()
+
+	logFile, err := os.Create("selenium.log")
+	handle(err)
+
 	opts := []selenium.ServiceOption{
 		selenium.GeckoDriver(geckoDriverPath),
-		selenium.Output(os.Stderr),
+		selenium.Output(logFile),
 	}
-	selenium.SetDebug(true)
+	selenium.SetDebug(false)
 
 	service, err := selenium.NewSeleniumService(seleniumPath, port, opts...)
 	handle(err)
@@ -116,12 +123,13 @@ func main() {
 	max := 200
 	now := 0
 	minTime := 1
-	maxTime := 200
+	maxTime := 100
 	for now < max {
 		now++
 		log.Println(now, "/", max)
 		fill(wd)
 		sleep := rand.Intn(maxTime-minTime+1) + minTime
+		log.Println("Sleep", sleep, "seconds")
 		time.Sleep(time.Duration(sleep) * time.Second)
 	}
 
