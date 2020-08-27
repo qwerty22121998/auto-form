@@ -14,40 +14,6 @@ const (
 	geckoDriverPath = "geckodriver"
 	formUrl         = "https://docs.google.com/forms/d/e/1FAIpQLSfDCuDusZhSJ1R9UouwlW4JEjL0IlSaNpoPMs__-VdAZOhBqA/viewform"
 	port            = 8080
-	script          = `let getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-let questionType = [
-    {
-        root: "freebirdFormviewerComponentsQuestionRadioRoot",
-        ele: "appsMaterialWizToggleRadiogroupOffRadio",
-    },
-    {
-        root: "appsMaterialWizToggleRadiogroupGroupContent",
-        ele: "appsMaterialWizToggleRadiogroupRadioButtonContainer",
-    },
-];
-
-let process = new Promise(resolve => {
-    questionType.forEach(type => {
-        let root = document.getElementsByClassName(type.root);
-        Array.from(root).forEach(e => {
-            let choices = e.getElementsByClassName(type.ele);
-            let index = getRandomInt(0, choices.length - 1);
-            choices[index].click();
-        });
-    });
-    resolve(true);
-})
-    .then(_ => {
-        document
-            .getElementsByClassName("freebirdFormviewerViewNavigationSubmitButton")[0]
-            .click();
-    })
-    .catch(e => console.error(e))`
 )
 
 func handle(err error) {
