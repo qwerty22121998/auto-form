@@ -116,10 +116,14 @@ func main() {
 	defer wd.Quit()
 	max := 200
 	now := 0
+	minTime := 1
+	maxTime := 200
 	for now < max {
 		now++
 		log.Println(now, "/", max)
 		fill(wd)
+		sleep := rand.Intn(maxTime-minTime+1) + minTime
+		time.Sleep(time.Duration(sleep) * time.Second)
 	}
 
 }
